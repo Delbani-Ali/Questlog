@@ -1,0 +1,1000 @@
+/* =================================================================
+   QUESTLOG STYLESHEET
+   =================================================================
+   This file contains all the styles for the QuestLog application.
+   It is organized as follows:
+   1. VARIABLES & GLOBAL RESET
+   2. LAYOUT & CONTAINER
+   3. NAVIGATION
+   4. TYPOGRAPHY & HEADERS
+   5. COMPONENTS (Cards, Forms, Buttons, Badges, Alerts, Modals)
+   6. PAGE-SPECIFIC STYLES (Main, Admin, Trophies)
+   7. ANIMATIONS
+   8. RESPONSIVE DESIGN
+   ================================================================= */
+
+/* =================================================================
+   1. VARIABLES & GLOBAL RESET
+   ================================================================= */
+
+/**
+ * :root
+ * Defines global CSS variables (custom properties) for colors,
+ * border-radius, transitions, and shadows. This allows for
+ * consistent theming and easy maintenance.
+ */
+:root {
+    --bg-primary: #121212;
+    --bg-secondary: #202020;
+    --bg-tertiary: #222;
+    --bg-dark: #333;
+    --text-primary: #fff;
+    --text-secondary: #aaa;
+    --text-muted: #666;
+    --accent: #714cbc;
+    --accent-hover: #5a3d9a;
+    --success: #4caf50;
+    --success-hover: #45a049;
+    --warning: #ff9800;
+    --error: #f44336;
+    --error-hover: #d32f2f;
+    --info: #2196f3;
+    --purple: #9c27b0;
+    --gold: #ffd700;
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    --transition: all 0.3s ease;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/**
+ * Universal Selector (*) & Body
+ * Basic reset for all elements and default styles for the body.
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-align: center;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* =================================================================
+   2. LAYOUT & CONTAINER
+   ================================================================= */
+
+/**
+ * .container, .admin-container, .trophies-container
+ * Provides a max-width and central alignment for main content areas.
+ */
+.container, .admin-container, .trophies-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* =================================================================
+   3. NAVIGATION
+   ================================================================= */
+
+/**
+ * Navbar Styles
+ * Defines the look and feel of the top navigation bar.
+ */
+.navbar {
+    background-color: var(--bg-secondary);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.nav-brand a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.user-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* =================================================================
+   4. TYPOGRAPHY & HEADERS
+   ================================================================= */
+
+/**
+ * General heading and text styles.
+ */
+h1, h2 {
+    font-weight: 600;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: -0.5px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--accent), var(--info));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+#greeting {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    padding: 1rem 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+/* =================================================================
+   5. COMPONENTS
+   ================================================================= */
+
+/* --- Cards --- */
+/**
+ * Base styles for all card-like containers. This includes authentication
+ * forms, admin sections, modals, and trophy cards.
+ */
+.auth-card, .form-card, .stat-card, .admin-section, .quest-result, .modal, .trophy-card {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.auth-card, .form-card {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-card {
+    max-width: 500px;
+}
+
+/* --- Forms --- */
+/**
+ * Styles for form containers, groups, labels, and inputs.
+ */
+.auth-container, .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.auth-form, .quest-form, .item-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+/* Base styles for all form inputs, textareas, and selects */
+.form-group input, .form-group textarea, .form-group select, .modal input, .modal select {
+    padding: 1rem;
+    border: 2px solid var(--bg-dark);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Focus styles for form elements */
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus, .modal input:focus, .modal select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(113, 76, 188, 0.2);
+}
+
+/* --- Buttons --- */
+/**
+ * Base styles for all button elements, ensuring a consistent appearance.
+ * Specific variants (.btn-secondary, .btn-danger, .btn-small) override
+ * these defaults.
+ */
+.auth-button, .btn-primary, .btn-secondary, .btn-small, .complete-btn, .modal button, .quest-buttons button, .back-button, #settings button {
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: var(--shadow);
+    padding: 1rem 2rem; /* Default padding */
+}
+
+/* Hover effect for all buttons */
+.auth-button:hover, .btn-primary:hover, .btn-secondary:hover, .btn-small:hover, .complete-btn:hover, .modal button:hover, .quest-buttons button:hover, .back-button:hover, #settings button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+.auth-button:hover, .btn-primary:hover, .complete-btn:hover, .modal button:hover, .quest-buttons button:hover, .back-button:hover, #settings button:hover {
+    background-color: var(--accent-hover);
+}
+
+/* Specific button variants */
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+.complete-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+}
+#settings button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 1rem auto;
+}
+.btn-secondary {
+    background-color: var(--text-muted);
+}
+.btn-secondary:hover {
+    background-color: #555;
+}
+.btn-danger {
+    background-color: var(--error);
+}
+.btn-danger:hover {
+    background-color: var(--error-hover);
+}
+
+/* --- Badges --- */
+/**
+ * Base styles for all badge elements. Badges are small, colored
+ * indicators used for roles, categories, and difficulty.
+ */
+.role-badge, .category-badge, .difficulty-badge, .quest-category, .quest-difficulty, .quest-xp, .trophy-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+}
+
+/* Badge color variants */
+.role-admin, .quest-category {
+    background-color: var(--accent);
+}
+.role-user, .trophy-status.locked {
+    background-color: var(--text-muted);
+}
+.category-drawing, .quest-difficulty, .difficulty-medium {
+    background-color: var(--warning);
+}
+.category-writing {
+    background-color: var(--info);
+}
+.category-exercise, .quest-xp, .trophy-status.earned, .difficulty-easy {
+    background-color: var(--success);
+}
+.category-reading {
+    background-color: var(--purple);
+}
+.difficulty-hard {
+    background-color: var(--error);
+}
+
+/* --- Alerts --- */
+/**
+ * Styles for alert messages (success, error, info).
+ */
+.alert {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-weight: 500;
+    box-shadow: var(--shadow);
+    border-left: 4px solid transparent;
+}
+.alert-success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--success);
+    border-left-color: var(--success);
+}
+.alert-error {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--error);
+    border-left-color: var(--error);
+}
+.alert-info {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: var(--info);
+    border-left-color: var(--info);
+}
+
+/* --- Modals & Overlays --- */
+/**
+ * Styles for pop-up modals and full-screen overlays like the level-up screen.
+ */
+.modal {
+    background: var(--bg-secondary);
+    padding: 2.5rem;
+    border-radius: var(--border-radius-lg);
+    margin: 2rem auto;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.modal h3 {
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+#levelUpOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.prize-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    border: 3px solid var(--gold);
+    z-index: 1001;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: popupAppear 0.5s ease-out;
+}
+
+/* --- Icons --- */
+.trophy-icon, .settings-icon {
+    font-size: 2.25rem;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--gold);
+}
+.trophy-icon:hover {
+    transform: scale(1.15) rotate(5deg);
+    color: var(--accent);
+}
+.settings-icon {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+.settings-icon:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+.settings-link {
+    padding: 0.75rem 0.5rem !important;
+}
+.settings-link:hover {
+    background-color: transparent !important;
+    transform: none !important;
+}
+
+/* =================================================================
+   6. PAGE-SPECIFIC STYLES
+   ================================================================= */
+
+/* --- Main Page (Quests & XP) --- */
+.xp-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 3rem auto;
+}
+.xp-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0% 0%, var(--bg-dark) 0% 100%);
+    transform: rotate(-90deg);
+    box-shadow: 0 8px 25px rgba(113, 76, 188, 0.3);
+    transition: background 1.5s ease-in-out;
+}
+.xp-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    background: var(--bg-primary);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+.xp-level {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+.xp-xp {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.quest-buttons {
+    margin: 2rem 0;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#todayQuests {
+    margin-top: 3rem;
+}
+#todayQuests h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: var(--accent);
+}
+#todayQuestsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quest-card {
+    background: var(--bg-tertiary);
+    border: 2px solid var(--success);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+}
+.quest-card:hover {
+    background: var(--bg-dark);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+.quest-card h3 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+.quest-card p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+.quest-card.medium {
+    border-color: var(--warning);
+}
+.quest-card.hard {
+    border-color: var(--error);
+}
+.quest-card button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--success);
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    width: 100%;
+}
+.quest-card button:hover {
+    background: var(--success-hover);
+    transform: translateY(-2px);
+}
+.quest-card button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    transform: none;
+}
+.quest-info {
+    display: flex;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.no-quests {
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 3rem 0;
+    font-size: 1.1rem;
+}
+.countdown {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #bbb;
+    font-style: italic;
+}
+
+/* Styles for the generated quest result inside the modal */
+#randomQuestResult {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    background: var(--bg-primary);
+    border: 1px solid var(--bg-dark);
+}
+.generated-quest {
+    text-align: center;
+}
+.generated-quest h4 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+.quest-text {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--bg-dark);
+    border-radius: var(--border-radius);
+    line-height: 1.5;
+}
+.quest-details {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+.quest-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.quest-actions button {
+    min-width: 120px;
+}
+.error-message {
+    color: var(--error);
+    font-weight: 500;
+}
+
+/* --- Admin Dashboard --- */
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    text-align: center;
+    transition: var(--transition);
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+.admin-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--bg-dark);
+    padding-bottom: 0;
+}
+.tab-button {
+    background: var(--bg-dark);
+    color: var(--text-secondary);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+.tab-button:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+.tab-button.active {
+    background: var(--accent);
+    color: var(--text-primary);
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.section-header h2 {
+    margin: 0;
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+.search-container {
+    flex: 1;
+    max-width: 300px;
+}
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--bg-dark);
+    border-radius: var(--border-radius);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(113, 76, 188, 0.2);
+}
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+.admin-section {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+.admin-section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+.table-container {
+    overflow-x: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+.admin-table th, .admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--bg-dark);
+}
+.admin-table th {
+    background-color: var(--bg-dark);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* --- Trophies Page --- */
+.trophies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+.trophies-grid .trophy-card {
+    padding: 2rem;
+    text-align: center;
+    border: 2px solid var(--bg-dark);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+.trophies-grid .trophy-card.unlocked {
+    border-color: var(--gold);
+    background-color: #2a2a2a;
+    transform: scale(1.05);
+}
+.trophies-grid .trophy-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+.trophies-grid .trophy-card .trophy-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+.trophies-grid .trophy-card h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+.trophies-grid .trophy-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+.trophy-requirement {
+    background-color: var(--bg-dark);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+}
+.trophy-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--gold);
+    z-index: 2000;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.5s ease-in-out;
+}
+.trophy-notification .trophy-icon {
+    font-size: 2rem;
+}
+.trophy-notification .trophy-info h4 {
+    margin: 0 0 0.25rem 0;
+    color: var(--gold);
+    font-weight: 600;
+}
+.trophy-notification .trophy-info p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+.trophy-notification .trophy-info small {
+    color: var(--success);
+    font-weight: 500;
+}
+
+/* =================================================================
+   7. ANIMATIONS
+   ================================================================= */
+@keyframes popupAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); }
+    60% { transform: translateY(-7px); }
+}
+
+@keyframes xpFill {
+    from {
+        background: conic-gradient(var(--accent) 0% 0%, var(--bg-dark) 0% 100%);
+    }
+    to {
+        background: conic-gradient(var(--accent) 0% var(--fill-percentage), var(--bg-dark) var(--fill-percentage) 100%);
+    }
+}
+
+.animated-trophy {
+    animation: bounce 0.8s ease-in-out;
+}
+
+.xp-circle.animating {
+    animation: xpFill 1.5s ease-in-out;
+}
+
+/* =================================================================
+   8. RESPONSIVE DESIGN
+   ================================================================= */
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+    
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    .nav-menu {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    #todayQuestsGrid,
+    .admin-stats,
+    .trophies-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .quest-card {
+        min-height: auto;
+        padding: 1.25rem;
+    }
+    
+    .quest-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .quest-buttons button, .quest-buttons a {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .modal {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+    
+    .xp-wrapper {
+        width: 180px;
+        height: 180px;
+        margin: 2rem auto;
+    }
+    .xp-center {
+        width: 120px;
+        height: 120px;
+    }
+    .xp-level {
+        font-size: 1.5rem;
+    }
+    .xp-xp {
+        font-size: 0.9rem;
+    }
+
+    /* Admin Dashboard Mobile Specifics */
+    .admin-tabs {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    .tab-button {
+        border-radius: var(--border-radius);
+        margin-bottom: 0.25rem;
+    }
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    .search-container {
+        max-width: none;
+    }
+    .table-container {
+        overflow-x: auto;
+        font-size: 0.8rem;
+    }
+    .admin-table th, .admin-table td {
+        padding: 0.5rem;
+        white-space: nowrap;
+    }
+    
+    .quest-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .quest-actions button {
+        width: 100%;
+        max-width: 200px;
+    }
+}

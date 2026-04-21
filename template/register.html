@@ -1,0 +1,52 @@
+<!--
+  =================================================================
+  REGISTRATION PAGE TEMPLATE (QuestLog)
+  =================================================================
+  This template provides the user interface for creating a new
+  account. It uses a Flask-WTF form for handling user input
+  and validation, including password confirmation.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Register - QuestLog{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Register for QuestLog</h2>
+        
+        <!-- Registration form that submits to the 'register' endpoint -->
+        <form method="POST" action="{{ url_for('register') }}" class="auth-form">
+            <!-- CSRF token for security (Flask-WTF) -->
+            {{ form.hidden_tag() }}
+
+            <!-- Username Field -->
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username(class="form-control") }}
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password(class="form-control") }}
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                {{ form.confirm_password.label }}
+                {{ form.confirm_password(class="form-control") }}
+            </div>
+
+            <!-- Submit Button -->
+            {{ form.submit(class="auth-button") }}
+        </form>
+
+        <!-- Link to the login page -->
+        <div class="auth-links">
+            <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

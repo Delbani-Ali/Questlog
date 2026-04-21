@@ -1,0 +1,57 @@
+<!--
+  =================================================================
+  QUEST FORM TEMPLATE (QuestLog)
+  =================================================================
+  This template provides a reusable form for both creating and
+  editing quests, powered by Flask-WTF. The behavior of the form
+  is controlled by the `action` context variable.
+
+  Context Variables:
+  - `action`: A string ("Add" or "Edit") that sets the title and
+    submit button text.
+  - `form`: The Flask-WTF form object containing quest data and
+    validation logic.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+<!-- Macro to render a form field with a label and input, reducing repetition -->
+{% macro render_field(field) %}
+<div class="form-group">
+    {{ field.label }}
+    {{ field(class="form-control") }}
+</div>
+{% endmacro %}
+
+<!-- Page title dynamically changes based on the 'action' context variable -->
+{% block title %}{{ action }} Quest - QuestLog{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <!-- Form heading also dynamically changes based on the 'action' -->
+        <h2>{{ action }} Quest</h2>
+        
+        <!-- 
+          The main form for quest data. It uses the macro defined above
+          to render each field consistently.
+        -->
+        <form method="POST" class="quest-form">
+            <!-- CSRF token for security -->
+            {{ form.hidden_tag() }}
+            
+            {{ render_field(form.name) }}
+            {{ render_field(form.description) }}
+            {{ render_field(form.category) }}
+            {{ render_field(form.difficulty) }}
+            {{ render_field(form.xp_reward) }}
+            
+            <!-- Form Actions: Submit and Cancel buttons -->
+            <div class="form-actions">
+                {{ form.submit(class="btn-primary") }}
+                <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

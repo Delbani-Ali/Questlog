@@ -1,0 +1,45 @@
+<!--
+  =================================================================
+  SETTINGS PAGE TEMPLATE (QuestLog)
+  =================================================================
+  This template provides a page for user-specific settings and
+  actions, such as resetting progress or viewing credits.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Settings - QuestLog{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card" id="settings">
+        <h2>Settings</h2>
+
+        <!-- 
+          Button to reset user progress. It triggers the `resetProgress()`
+          JavaScript function, which should handle the confirmation and
+          backend communication.
+        -->
+        <button onclick="resetProgress()" class="btn-danger">Reset Progress</button>
+        <p class="text-muted">Warning: This will permanently delete all your quests and progress.</p>
+        
+        <!-- Button to show application credits -->
+        <button onclick="showCredits()" class="btn-secondary">Credits</button>
+        
+        <!-- 
+          A link to return to the main page.
+          Note: Inline styles are used here for simplicity, but for larger
+          applications, this should be moved to an external CSS file.
+        -->
+        <a href="{{ url_for('index') }}" class="back-button" style="margin-top: 2rem;">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- 
+  Includes the main JavaScript file for this page, which contains
+  the `resetProgress()` and `showCredits()` functions.
+-->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %} 

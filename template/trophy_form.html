@@ -1,0 +1,57 @@
+<!--
+  =================================================================
+  TROPHY FORM TEMPLATE (QuestLog)
+  =================================================================
+  This template provides a reusable form for both creating and
+  editing trophies, powered by Flask-WTF. The behavior of the form
+  is controlled by the `action` context variable.
+
+  Context Variables:
+  - `action`: A string ("Add" or "Edit") that sets the title and
+    submit button text.
+  - `form`: The Flask-WTF form object containing trophy data and
+    validation logic.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+<!-- Macro to render a form field with a label and input, reducing repetition -->
+{% macro render_field(field) %}
+<div class="form-group">
+    {{ field.label }}
+    {{ field(class="form-control") }}
+</div>
+{% endmacro %}
+
+<!-- Page title dynamically changes based on the 'action' context variable -->
+{% block title %}{{ action }} Trophy - QuestLog{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <!-- 
+      The form submits to the current URL, allowing the same view
+      function to handle both GET (displaying) and POST (processing) requests.
+    -->
+    <form method="POST" action="" class="form-card item-form">
+        <!-- CSRF token for security -->
+        {{ form.hidden_tag() }}
+        
+        <!-- Form heading dynamically changes based on the 'action' -->
+        <h2>{{ action }} Trophy</h2>
+
+        <!-- Render each form field using the macro for consistency -->
+        {{ render_field(form.name) }}
+        {{ render_field(form.description) }}
+        {{ render_field(form.icon) }}
+        {{ render_field(form.requirement_type) }}
+        {{ render_field(form.requirement_value) }}
+        {{ render_field(form.xp_reward) }}
+
+        <!-- Form Actions: Submit and Cancel buttons -->
+        <div class="form-actions">
+            {{ form.submit(class="btn-primary") }}
+            <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %} 

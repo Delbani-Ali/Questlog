@@ -1,0 +1,23 @@
+# Environments
+venv/
+env/
+.env
+
+# Python internals
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database (Local data)
+instance/
+*.sqlite3
+*.db
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/

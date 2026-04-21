@@ -1,0 +1,153 @@
+<!--
+  =================================================================
+  HOME PAGE TEMPLATE (QuestLog)
+  =================================================================
+  This template renders the main user dashboard. It extends `base.html`
+  and contains the primary user interface components:
+  - The XP Circle and level display.
+  - Action buttons to generate or create quests.
+  - Modals for quest generation and creation.
+  - The grid of the user's current active quests.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Home - QuestLog{% endblock %}
+
+{% block content %}
+<div class="main-container">
+
+    <!-- 
+      XP Display
+      Shows the user's level and progress towards the next level
+      in a circular progress bar.
+    -->
+    <div class="xp-wrapper">
+        <div id="xpCircle" class="xp-circle"></div>
+        <div class="xp-center">
+            <div id="xpLevel" class="xp-level">Level {{ user_level }}</div>
+            <div id="xpAmount" class="xp-xp">--/-- XP</div>
+        </div>
+    </div>
+    
+    <!-- 
+      Primary Action Buttons
+      - Admin-only button to add a quest to the global pool.
+      - Button to open the random quest generation modal.
+      - Button to open the custom quest creation modal.
+    -->
+    <div class="quest-buttons">
+        {% if current_user.role == 'admin' %}
+        <a href="{{ url_for('add_quest') }}" class="btn-primary">Add New Quest Type</a>
+        {% endif %}
+        <button id="randomQuestBtn" class="btn-primary">Give Me a Quest</button>
+        <button id="addQuestBtn" class="btn-primary">Add Custom Quest</button>
+    </div>
+
+    <!-- 
+      Random Quest Modal
+      A pop-up that allows users to generate a random quest based
+      on a selected category and difficulty.
+    -->
+    <div id="randomQuestModal" class="modal" style="display:none;">
+        <h3>Let's find a quest for you!</h3>
+        <div class="form-group">
+            <label for="questCategorySelect">Category:</label>
+            <select id="questCategorySelect" class="form-control">
+                <option value="drawing">Drawing</option>
+                <option value="writing">Writing</option>
+                <option value="exercise">Exercise</option>
+                <option value="reading">Reading</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="questDifficultySelect">Difficulty:</label>
+            <select id="questDifficultySelect" class="form-control">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+        <button onclick="generateRandomQuest()" class="btn-primary">Generate</button>
+        <div id="randomQuestResult"></div>
+    </div>
+
+    <!-- 
+      Add Custom Quest Modal
+      A pop-up form for users to define and add their own personal quest.
+    -->
+    <div id="addQuestModal" class="modal" style="display: none;">
+        <h3>Add a Custom Quest</h3>
+        <div class="form-group">
+            <label for="customQuestName">Name:</label>
+            <input type="text" id="customQuestName" class="form-control" placeholder="e.g., Go for a 15-minute walk">
+        </div>
+        <div class="form-group">
+            <label for="customQuestDescription">Description:</label>
+            <textarea id="customQuestDescription" class="form-control" placeholder="A short description of your quest."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="customQuestCategory">Category:</label>
+            <select id="customQuestCategory" class="form-control">
+                <option value="drawing">Drawing</option>
+                <option value="writing">Writing</option>
+                <option value="exercise">Exercise</option>
+                <option value="reading">Reading</option>
+                <option value="custom">Custom</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="customQuestDifficulty">Difficulty:</label>
+            <select id="customQuestDifficulty" class="form-control">
+                <option value="easy">Easy (10 XP)</option>
+                <option value="medium">Medium (20 XP)</option>
+                <option value="hard">Hard (30 XP)</option>
+            </select>
+        </div>
+        <button onclick="addCustomQuest()" class="btn-primary">Add Quest</button>
+    </div>
+
+    <!-- 
+      Today's Quests Grid
+      Displays all active quests for the current user. If there are
+      no quests, it shows a placeholder message.
+    -->
+    <section id="todayQuests">
+        <h2>Today's Quests</h2>
+        <div id="todayQuestsGrid">
+            {% if active_quests %}
+                {% for quest in active_quests %}
+                <div class="quest-card {{ quest.difficulty }}">
+                    <h3>{{ quest.name }}</h3>
+                    <p class="quest-description">{{ quest.description }}</p>
+                    <div class="quest-info">
+                        <span class="quest-category">{{ quest.category }}</span>
+                        <span class="quest-difficulty">{{ quest.difficulty }}</span>
+                        <span class="quest-xp">+{{ quest.xp_reward }} XP</span>
+                    </div>
+                    <form method="POST" action="{{ url_for('complete_quest', user_quest_id=quest.id) }}" style="display: inline;" class="quest-complete-form">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="complete-btn" data-quest-id="{{ quest.id }}" data-xp-reward="{{ quest.xp_reward }}">Complete Quest</button>
+                    </form>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-quests">No active quests. Click "Give Me a Quest" to get started!</p>
+            {% endif %}
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }} <!-- Includes the scripts from base.html -->
+    <script>
+        // Initialize the XP circle on this page specifically.
+        document.addEventListener('DOMContentLoaded', function() {
+            const initialUserXP = {{ user_xp|default(0) }};
+            const initialUserLevel = {{ user_level|default(1) }};
+            initXp(initialUserXP, initialUserLevel);
+        });
+    </script>
+{% endblock %}

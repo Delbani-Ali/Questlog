@@ -1,0 +1,56 @@
+<!--
+  =================================================================
+  GENERIC ITEM FORM TEMPLATE (QuestLog)
+  =================================================================
+  This template provides a reusable form for both creating and
+  editing items. It is designed to be flexible and is controlled
+  by context variables passed from the Flask backend.
+
+  Context Variables:
+  - `action`: A string that defines the form's purpose, typically
+    "Add" or "Edit". It's used in the title and submit button.
+  - `item`: The item object to be edited. For new items, this
+    variable is None, and the form fields will render empty.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+<!-- Page title dynamically changes based on the 'action' context variable -->
+{% block title %}{{ action }} Item - QuestLog{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <!-- Form heading also dynamically changes based on the 'action' -->
+        <h2>{{ action }} Item</h2>
+        
+        <!-- The main form for item data, submitting via POST -->
+        <form method="POST" class="item-form">
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <!-- The 'or ""' syntax pre-fills the value if an item exists, otherwise it's empty -->
+                <input type="text" id="name" name="name" value="{{ item.name or '' }}" required>
+            </div>
+
+            <!-- Description Field -->
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required>{{ item.description or '' }}</textarea>
+            </div>
+
+            <!-- Flavor Text Field -->
+            <div class="form-group">
+                <label for="flavor">Flavor:</label>
+                <input type="text" id="flavor" name="flavor" value="{{ item.flavor or '' }}" required>
+            </div>
+            
+            <!-- Form Actions: Submit and Cancel buttons -->
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">{{ action }}</button>
+                <a href="{{ url_for('index') }}" class="btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

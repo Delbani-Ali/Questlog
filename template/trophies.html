@@ -1,0 +1,55 @@
+<!--
+  =================================================================
+  TROPHIES PAGE TEMPLATE (QuestLog)
+  =================================================================
+  This template displays a grid of all available trophies, showing
+  which ones the user has earned and which remain locked.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Trophies - QuestLog{% endblock %}
+
+{% block content %}
+<div class="trophies-container">
+    <h1>Your Trophies</h1>
+    
+    <div class="trophies-grid">
+        <!-- Loop through each trophy and display it as a card -->
+        {% for trophy in trophies %}
+        <!-- A CSS class 'unlocked' is added if the trophy has been earned -->
+        <div class="trophy-card {% if trophy.earned %}unlocked{% endif %}">
+            <div class="trophy-icon">{{ trophy.icon }}</div>
+            <h3>{{ trophy.name }}</h3>
+            <p>{{ trophy.description }}</p>
+
+            <!-- 
+              Dynamically displays the requirement text based on the
+              trophy's requirement type.
+            -->
+            <div class="trophy-requirement">
+                {% if trophy.requirement_type == 'quests_completed' %}
+                    Complete {{ trophy.requirement_value }} quest{{ 's' if trophy.requirement_value != 1 else '' }}
+                {% elif trophy.requirement_type == 'level_reached' %}
+                    Reach level {{ trophy.requirement_value }}
+                {% elif trophy.requirement_type == 'xp_earned' %}
+                    Earn {{ trophy.requirement_value }} XP
+                {% endif %}
+            </div>
+
+            <!-- Shows whether the trophy is earned or locked -->
+            {% if trophy.earned %}
+            <div class="trophy-status earned">🏆 Earned!</div>
+            {% else %}
+            <div class="trophy-status locked">🔒 Locked</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Action button to navigate back to the home page -->
+    <div class="trophies-actions">
+        <a href="{{ url_for('index') }}" class="btn-primary">Back to Home</a>
+    </div>
+</div>
+{% endblock %} 

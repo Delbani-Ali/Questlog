@@ -1,0 +1,46 @@
+<!--
+  =================================================================
+  LOGIN PAGE TEMPLATE (QuestLog)
+  =================================================================
+  This template provides the user interface for logging into the
+  application. It uses a Flask-WTF form for handling user input
+  and validation.
+  =================================================================
+-->
+{% extends "base.html" %}
+
+{% block title %}Login - QuestLog{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Login to QuestLog</h2>
+        
+        <!-- Login form that submits to the 'login' endpoint -->
+        <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+            <!-- CSRF token for security (Flask-WTF) -->
+            {{ form.hidden_tag() }}
+            
+            <!-- Username Field -->
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username(class="form-control") }}
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password(class="form-control") }}
+            </div>
+
+            <!-- Submit Button -->
+            {{ form.submit(class="auth-button") }}
+        </form>
+        
+        <!-- Link to the registration page -->
+        <div class="auth-links">
+            <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

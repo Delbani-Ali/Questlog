@@ -1,0 +1,109 @@
+<!--
+  =================================================================
+  BASE HTML TEMPLATE (QuestLog)
+  =================================================================
+  This is the main layout file for the application. All other
+  templates extend this file. It includes:
+  - The HTML head with metadata and stylesheets.
+  - The navigation bar, visible to authenticated users.
+  - A container for flashed messages (alerts).
+  - The main content block where child templates are rendered.
+  - A hidden overlay for level-up notifications.
+  - Global JavaScript files and initialization logic.
+  =================================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character set and responsive design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- CSRF Token for security in AJAX requests -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Title block, can be overridden by child templates -->
+    <title>{% block title %}QuestLog{% endblock %}</title>
+
+    <!-- Favicon and main stylesheet -->
+    <link rel="icon" href="{{ url_for('static', filename='icons8-task-48.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Block for extra CSS in child templates -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- 
+      Authenticated Navigation Bar
+      This navbar is only displayed if a user is logged in.
+    -->
+    {% if current_user.is_authenticated %}
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="{{ url_for('index') }}">QuestLog</a>
+            </div>
+            <div class="nav-menu">
+                <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+                <a href="{{ url_for('trophies') }}" class="nav-link">Trophies</a>
+                {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}" class="nav-link">Admin Dashboard</a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+                <a href="{{ url_for('settings') }}" class="nav-link settings-link">Settings</a>
+                <span class="user-info">{{ current_user.username }} ({{ current_user.role }})</span>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- 
+      Main Content Container
+      - Displays flashed messages from the server.
+      - Renders the content of child templates via the `content` block.
+    -->
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- 
+      Level Up Overlay
+      A hidden modal that appears when a user levels up.
+    -->
+    <div id="levelUpOverlay" style="display:none;">
+        <div class="prize-popup">
+            <h2>Level Up!</h2>
+            <p>Congratulations, you've reached a new level!</p>
+            <button onclick="hideOverlay()" class="btn-primary">Continue</button>
+        </div>
+    </div>
+
+    <!-- 
+      Scripts Block
+      - Includes external libraries (like canvas-confetti).
+      - Initializes client-side JavaScript with data from the server.
+    -->
+    {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script>
+        // Pass initial user data from Flask to JavaScript and initialize the XP system on page load.
+        document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('xpCircle')) {
+                const initialUserXP = {{ user_xp|default(0) }};
+                const initialUserLevel = {{ user_level|default(1) }};
+                initXp(initialUserXP, initialUserLevel);
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% endblock %}
+</body>
+</html> 
