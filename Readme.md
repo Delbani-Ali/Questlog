@@ -1,75 +1,214 @@
-## 🎮 QuestLog
-QuestLog is a professional, gamified task management system built with Flask. It transforms daily productivity into an RPG-style adventure where users complete quests to earn XP, level up, and unlock achievements.
-## ✨ Features
+# 🎮 QuestLog – Gamified Task Management System
 
-* Gamified Progress: Leveling algorithm based on XP accumulation.
-* Quest System: Support for custom quests, difficulty scaling, and random quest generation.
-* Trophy Room: Automated achievement tracking for milestones like level reached, XP earned, and quests completed.
-* Admin Suite: Robust dashboard for managing users, quest content, and platform statistics.
-* Secure Auth: Full user authentication system with role-based access control (RBAC).
+A full-stack **gamified productivity platform** built with Flask.
+QuestLog transforms everyday tasks into an RPG-style experience where users complete quests, earn XP, level up, and unlock achievements.
 
-## 📂 Project Structure
+---
 
+## 📌 Overview
+
+QuestLog is a dynamic task management system designed to make productivity engaging and rewarding.
+
+Instead of traditional task lists, users interact with a **progression system** that tracks experience points, levels, and achievements—bringing game mechanics into real-world workflows.
+
+Built with a focus on **backend logic, system design, and user management**, this project demonstrates how gamification can enhance user engagement.
+
+---
+
+## 🚀 Features
+
+* 🎯 **Quest System**
+
+  * Create custom quests with difficulty scaling
+  * Random quest generation for variety
+
+* 📈 **Progression Engine**
+
+  * XP-based leveling system
+  * Dynamic level calculation
+
+* 🏆 **Achievement System**
+
+  * Automatic trophy unlocking
+  * Tracks milestones (XP, levels, completed quests)
+
+* 👤 **Authentication & Security**
+
+  * User registration & login
+  * Role-Based Access Control (RBAC)
+
+* 🛠️ **Admin Dashboard**
+
+  * Manage users and quests
+  * Monitor platform activity
+
+---
+
+## 🧱 Project Structure
+
+```
 QuestLog/
-├── app.py              # Main application logic & Database models
-├── forms.py            # Flask-WTF form definitions
-├── requirements.txt    # Project dependencies
-├── .env                # Environment variables (Secrets)
-├── static/             # CSS, JS, and UI assets
-├── template/           # HTML templates (Jinja2)
-└── instance/           # Local SQLite database
+│
+├── app.py              # Main app + database models + routes
+├── forms.py            # Flask-WTF forms
+├── requirements.txt    # Dependencies
+├── .env                # Environment variables
+│
+├── static/             # CSS, JS, assets
+├── templates/          # Jinja2 templates
+└── instance/           # SQLite database
+```
 
-## 🚀 Getting Started## Prerequisites
+---
 
-* Python 3.8 or higher
+## ⚙️ Tech Stack
+
+* **Backend:** Flask (Python)
+* **Database:** SQLite (configurable)
+* **Frontend:** HTML, CSS, Jinja2
+* **Auth:** Flask-Login / JWT concepts
+* **Forms:** Flask-WTF
+
+---
+
+## ▶️ Getting Started
+
+### 🔹 Prerequisites
+
+* Python 3.8+
 * Git
 
-## Installation
+---
 
-   1. Clone the Repository
-   
-   git clone https://github.com/Delbani-Ali/Questlog.git
-   cd Questlog
-   
-   2. Set Up Virtual Environment
-   
-   # Windows
-   python -m venv venv
-   .\venv\Scripts\activate
-   # macOS/Linux
-   python3 -m venv venv
-   source venv/bin/activate
-   
-   3. Install Dependencies
-   
-   pip install -r requirements.txt
-   
-   4. Configuration
+### 🔹 Installation
 
-    Create a .env file in the root directory:
+```bash
+git clone https://github.com/Delbani-Ali/Questlog.git
+cd Questlog
+```
 
-    SECRET_KEY=your_random_secret_key
-    DATABASE_URL=sqlite:///questlog.db
+---
 
-   5. Initialize Database
+### 🔹 Virtual Environment
 
-   Run the custom CLI commands:
-   
-   flask init-db        # Creates tables and pre-loads trophies
-   flask create-admin   # Creates the initial admin user
-   
-   6. Run the Application
-   
-   python app.py
-   
-   The app will be available at http://127.0.0.1:5000.
+```bash
+# Windows
+python -m venv venv
+.\venv\Scripts\activate
 
-## 🛠️ Configuration
+# macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+```
 
-* To access the admin dashboard, ensure you have logged in with an account where the role is set to admin. Use the flask create-admin command for the initial setup.
-Initially it will create the following admin account -> Username : admin | Password : changethis
-* Database: Uses SQLite by default (stored in the /instance folder).
+---
 
-## 📝 License
-This project is open-source and available under the MIT License.
-------------------------------
+### 🔹 Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 🔹 Environment Setup
+
+Create a `.env` file:
+
+```env
+SECRET_KEY=your_random_secret_key
+DATABASE_URL=sqlite:///questlog.db
+```
+
+---
+
+### 🔹 Initialize Database
+
+```bash
+flask init-db
+flask create-admin
+```
+
+Default admin credentials:
+
+```
+Username: admin
+Password: changethis
+```
+
+---
+
+### 🔹 Run the App
+
+```bash
+python app.py
+```
+
+Visit:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## 🧩 System Breakdown
+
+### 🔹 Quest Management
+
+* Create, update, and track quests
+* Difficulty impacts XP rewards
+
+---
+
+### 🔹 Progression Logic
+
+* XP accumulation system
+* Level scaling algorithm
+
+---
+
+### 🔹 Achievement Engine
+
+* Event-based tracking
+* Automatic milestone detection
+
+---
+
+### 🔹 Admin Suite
+
+* User control
+* Quest moderation
+* Platform overview
+
+---
+
+## 💡 Future Improvements
+
+* Upgrade to PostgreSQL
+* Add real-time features (notifications, updates)
+* Enhance gamification (leaderboards, teams)
+
+---
+
+## 🧠 What This Project Shows
+
+* Backend system design (logic-heavy features)
+* Implementation of gamification mechanics
+* Authentication and role management
+* Structured Flask application development
+* Ability to build a complete working product
+
+---
+
+## 👤 Author
+
+Ali Delbani
+
+---
+
+## 📄 License
+
+MIT License
+
+---
